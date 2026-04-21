@@ -283,7 +283,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
+                    <!-- <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
                         <div class="single-team mb-80 text-center">
                             <div class="team-img">
                                 <img src="assets/img/gallery/team2.png" alt="">
@@ -293,7 +293,7 @@
                                 <h3><a href="#">Steve L. Nolan</a></h3>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
                         <div class="single-team mb-80 text-center">
                             <div class="team-img">
@@ -477,21 +477,6 @@
                                         <input class="form-control" name="alamat" id="alamat" type="text" placeholder="Alamat" required>
                                     </div>
                                 </div>
-                                
-                                <!-- Tanggal -->
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <input class="form-control" name="tanggal" id="tanggal" type="date" required>
-                                    </div>
-                                </div>
-
-                                <!-- Jam -->
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <input class="form-control" name="jam" id="jam" type="time" required>
-                                    </div>
-                                </div>
-                                 <!-- Layanan (Optional Dropdown) -->
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <select class="form-control" name="layanan" id="layanan">
@@ -503,6 +488,23 @@
                                         </select>
                                     </div>
                                 </div>
+                                <br>
+                               <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Pilih Tanggal</label>
+                                        <input class="form-control" name="tanggal" id="tanggal" type="date" required>
+                                    </div>
+                                </div>
+
+                                <!-- Jam -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Pilih Jam</label>
+                                        <input class="form-control" name="jam" id="jam" type="time" required>
+                                    </div>
+                                </div>
+                                 <!-- Layanan (Optional Dropdown) -->
+                                
 
                             </div>
 
@@ -519,10 +521,21 @@
                                 <p>AFU Barbershop</p>
                             </div>
                         </div>
-                        <div class="media contact-info">
+                        <!-- <div class="media contact-info">
                             <span class="contact-info__icon"><i class="ti-tablet"></i></span>
                             <div class="media-body">
                                 <h3>0896 9361 5200</h3>
+                                <p>Setiap Hari 10.00 - 21.00</p>
+                            </div>
+                        </div> -->
+                        <div class="media contact-info">
+                            <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+                            <div class="media-body">
+                                <h3>
+                                    <a target="_blank" href="https://wa.me/6289693615200" target="_blank">
+                                        0896 9361 5200
+                                    </a>
+                                </h3>
                                 <p>Setiap Hari 10.00 - 21.00</p>
                             </div>
                         </div>
@@ -561,10 +574,10 @@
                         <div class="col-xl-3 col-lg-4">
                             <!-- Footer Social -->
                             <div class="footer-social f-right">
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fas fa-globe"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="https://www.instagram.com/fauzn.ya?igsh=NHBubG5zbm82cnBt"><i class="fab fa-twitter"></i></a>
+                                <a href="https://www.instagram.com/fauzn.ya?igsh=NHBubG5zbm82cnBt"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://www.instagram.com/fauzn.ya?igsh=NHBubG5zbm82cnBt"><i class="fas fa-globe"></i></a>
+                                <a href="https://www.instagram.com/fauzn.ya?igsh=NHBubG5zbm82cnBt"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
@@ -637,7 +650,7 @@
             var adminNumber = "6289693615200";
 
             var pesan = 
-        `Halo Zans Barber,
+        `Halo AFU Barber,
         Aku mau booking Nih,
 
         Nama: ${nama}
@@ -648,7 +661,7 @@
 
             var encodedMessage = encodeURIComponent(pesan);
 
-            var url = `https://wa.me/${adminNumber}?text=${encodedMessage} `;
+            var url = `https://wa.me/${adminNumber}?text=${encodedMessage} Bisa bro?`;
 
             window.open(url, '_blank');
             form.reset();
