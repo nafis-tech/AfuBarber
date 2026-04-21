@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8"> 
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title> AFU Barber </title>
     <meta name="description" content="">
@@ -574,10 +574,10 @@
                         <div class="col-xl-3 col-lg-4">
                             <!-- Footer Social -->
                             <div class="footer-social f-right">
-                                <a href="https://www.instagram.com/fauzn.ya?igsh=NHBubG5zbm82cnBt"><i class="fab fa-twitter"></i></a>
-                                <a href="https://www.instagram.com/fauzn.ya?igsh=NHBubG5zbm82cnBt"><i class="fab fa-facebook-f"></i></a>
-                                <a href="https://www.instagram.com/fauzn.ya?igsh=NHBubG5zbm82cnBt"><i class="fas fa-globe"></i></a>
-                                <a href="https://www.instagram.com/fauzn.ya?igsh=NHBubG5zbm82cnBt"><i class="fab fa-instagram"></i></a>
+                                <a target="_blank" href="https://www.instagram.com/afubarbershop?igsh=MTBlYnE5Y2swY2ppbg=="><i class="fab fa-twitter"></i></a>
+                                <a target="_blank" href="https://www.instagram.com/afubarbershop?igsh=MTBlYnE5Y2swY2ppbg=="><i class="fab fa-facebook-f"></i></a>
+                                <a target="_blank" href="https://www.instagram.com/afubarbershop?igsh=MTBlYnE5Y2swY2ppbg=="><i class="fas fa-globe"></i></a>
+                                <a target="_blank" href="https://www.instagram.com/afubarbershop?igsh=MTBlYnE5Y2swY2ppbg=="><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
@@ -631,9 +631,11 @@
     <!-- Jquery Plugins, main Jquery -->	
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/main.js"></script>
-    <script>
+   <script>
         document.getElementById("contactForm").addEventListener("submit", function(e) {
             e.preventDefault();
+
+            var form = document.getElementById("contactForm");
 
             var nama = document.getElementById("name").value.trim();
             var nomor = document.getElementById("nomor").value.trim();
@@ -641,15 +643,35 @@
             var jam = document.getElementById("jam").value;
             var layanan = document.getElementById("layanan").value;
 
-            // Validasi
             if(nama === "" || nomor === "" || tanggal === "" || jam === "") {
                 alert("Harap isi semua data wajib!");
                 return;
             }
 
+            // 🔥 Normalisasi nomor
+            if(nomor.startsWith("0")) {
+                nomor = "62" + nomor.substring(1);
+            }
+
             var adminNumber = "6289693615200";
 
-            var pesan = 
+            // 🔥 Kirim ke Google Sheet
+            fetch("https://script.google.com/macros/s/AKfycbzRG0968LJBX_d2OyHEhweEw_GTgOp1cvJHQ1lO6KFxTURK4yL-_3S85TjyLSKKviTD/exec", {
+                method: "POST",
+                body: JSON.stringify({
+                    nama: nama,
+                    nomor: nomor,
+                    tanggal: tanggal,
+                    jam: jam,
+                    layanan: layanan
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+
+                var kunjungan = data.kunjungan || 1;
+
+                var pesan = 
         `Halo AFU Barber,
         Aku mau booking Nih,
 
@@ -657,16 +679,25 @@
         No WA: ${nomor}
         Tanggal: ${tanggal}
         Jam: ${jam}
-        Layanan: ${layanan || '-'}`;
+        Layanan: ${layanan || '-'}
+        Kunjungan ke: ${kunjungan}`;
 
-            var encodedMessage = encodeURIComponent(pesan);
+                var encodedMessage = encodeURIComponent(pesan);
 
-            var url = `https://wa.me/${adminNumber}?text=${encodedMessage} Bisa bro?`;
+                var url = `https://wa.me/${adminNumber}?text=${encodedMessage}`;
 
-            window.open(url, '_blank');
-            form.reset();
+                window.open(url, '_blank');
+
+                form.reset();
+
+                alert(`Booking berhasil! Kunjungan ke-${kunjungan}`);
+            })
+            .catch(err => {
+                alert("Gagal kirim data!");
+                console.error(err);
+            });
+
         });
-    </script>
-    
+        </script>
     </body>
 </html>
