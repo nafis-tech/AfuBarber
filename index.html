@@ -357,9 +357,9 @@
                 </div>
             </div>
             <!-- pricing img -->
-            <div class="pricing-img">
+            <div class="gallery-img">
                 <img class="pricing-img1" src="assets/img/gallery/pricing1.png" alt="">
-                <img class="pricing-img2" src="assets/img/gallery/pricing2.png" alt="">
+                <!-- <img class="pricing-img2" src="assets/img/gallery/pricing2.png" alt=""> -->
             </div>
         </div>
         <!-- Best Pricing Area End -->
@@ -394,9 +394,21 @@
                             <div class="overlay"></div>
                         </div>
                     </div>
+                     <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="box snake mb-30">
+                            <div class="gallery-img " style="background-image: url(assets/img/gallery/gallery6.png);"></div>
+                            <div class="overlay"></div>
+                        </div>
+                    </div>
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="box snake mb-30">
                             <div class="gallery-img " style="background-image: url(assets/img/gallery/gallery4.png);"></div>
+                            <div class="overlay"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="box snake mb-30">
+                            <div class="gallery-img " style="background-image: url(assets/img/gallery/gallery5.png);"></div>
                             <div class="overlay"></div>
                         </div>
                     </div>
@@ -518,7 +530,7 @@
                         <div class="media contact-info">
                             <span class="contact-info__icon"><i class="ti-home"></i></span>
                             <div class="media-body">
-                                <h3>Ngampel, Mojoroto</h3>
+                                <h3>Ngampel, Mojoroto - KEDIRI</h3>
                                 <p>AFU Barbershop</p>
                             </div>
                         </div>
@@ -666,11 +678,12 @@
 
             var adminNumber = "6289693615200";
 
-            fetch("https://script.google.com/macros/s/AKfycbzRG0968LJBX_d2OyHEhweEw_GTgOp1cvJHQ1lO6KFxTURK4yL-_3S85TjyLSKKviTD/exec", {
+            fetch("https://script.google.com/macros/s/AKfycbz0PXu0cdKGuoVhnfVIlXN9GbFzFjN9J4kwF38YqnMyNasykdsSUjFvVz2BqJfk_5Ix/exec", {
                 method: "POST",
                 body: JSON.stringify({
                     nama: nama,
                     nomor: nomor,
+                    alamat : alamat,
                     tanggal: tanggal,
                     jam: jam,
                     layanan: layanan
