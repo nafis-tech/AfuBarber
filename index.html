@@ -482,6 +482,7 @@
                                         <select class="form-control" name="layanan" id="layanan">
                                             <option value="">Pilih Layanan (Opsional)</option>
                                             <option value="Potong Rambut">Potong Rambut</option>
+                                            <option value="Potong Rambut + Keramas">Potong Rambut + Keramas</option>
                                             <option value="Bleacing Rambut">Bleacing Rambut </option>
                                             <option value="Warna Rambut">Warna Rambut</option>
                                             <option value="Semir Hitam">Semir Hitam</option>
@@ -640,6 +641,7 @@
             var nama = document.getElementById("name").value.trim();
             var nomor = document.getElementById("nomor").value.trim();
             var tanggal = document.getElementById("tanggal").value;
+            var alamat= document.getElementById("alamat").value;
             var jam = document.getElementById("jam").value;
             var layanan = document.getElementById("layanan").value;
 
@@ -678,6 +680,7 @@
         Nama: ${nama}
         No WA: ${nomor}
         Tanggal: ${tanggal}
+        Alamat : ${alamat}
         Jam: ${jam}
         Layanan: ${layanan || '-'}
         Kunjungan ke: ${kunjungan}`;
@@ -690,7 +693,7 @@
 
                 form.reset();
 
-                alert(`Booking berhasil! Kunjungan ke-${kunjungan}`);
+                // alert(`Booking berhasil! Kunjungan ke-${kunjungan}`);
             })
             .catch(err => {
                 alert("Gagal kirim data!");
