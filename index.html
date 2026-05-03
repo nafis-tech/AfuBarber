@@ -283,17 +283,17 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
                         <div class="single-team mb-80 text-center">
                             <div class="team-img">
                                 <img src="assets/img/gallery/team2.png" alt="">
                             </div>
                             <div class="team-caption">
                                 <span>Color Expart</span>
-                                <h3><a href="#">Steve L. Nolan</a></h3>
+                                <h3><a href="#">Isan</a></h3>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <!-- <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
                         <div class="single-team mb-80 text-center">
                             <div class="team-img">
@@ -355,18 +355,14 @@
                         </div>
                     </div>
 
-                    <!-- RIGHT: IMAGE (50%) -->
-                    <div class="col-lg-6 text-center">
-                        <img src="assets/img/gallery/pricing1.png" class="img-fluid" alt="">
-                    </div>
+                    
 
                 </div>
             </div>
-
             <!-- RIGHT: IMAGE (50%) -->
-            <div class="col-lg-6 text-center">
-                <img src="assets/img/gallery/pricing1.png" class="img-fluid" alt="">
-            </div>
+                    <div class="col-lg-6 text-center">
+                        <img src="assets/img/gallery/pricing1.png" class="img-fluid" alt="">
+                    </div>
 
         </div>
     </div>
@@ -481,40 +477,45 @@
                                 <!-- Nama -->
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control" name="name" id="name" type="text" placeholder="Nama" required>
+                                        <input class="form-control" name="name" type="text" placeholder="Nama" required>
                                     </div>
                                 </div>
 
                                 <!-- Nomor WA -->
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control" name="number" id="nomor" type="number" placeholder="No WA" required>
+                                        <input class="form-control" name="number" type="number" placeholder="No WA" required>
                                     </div>
                                 </div>
 
                                 <!-- Alamat -->
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <input class="form-control" name="alamat" id="alamat" type="text" placeholder="Alamat" required>
+                                        <input class="form-control" name="alamat" type="text" placeholder="Alamat" required>
                                     </div>
                                 </div>
+
+                                <!-- Layanan -->
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <select class="form-control" name="layanan" id="layanan">
-                                            <option value="">Pilih Layanan (Opsional)</option>
-                                            <option value="Potong Rambut">Potong Rambut</option>
-                                            <option value="Potong Rambut + Keramas">Potong Rambut + Keramas</option>
-                                            <option value="Bleacing Rambut">Bleacing Rambut </option>
-                                            <option value="Warna Rambut">Warna Rambut</option>
-                                            <option value="Semir Hitam">Semir Hitam</option>
-                                        </select>
+                                        <label>Pilih Layanan</label><br>
+
+                                        <input type="checkbox" name="layanan[]" value="Potong Rambut|25000"> Potong Rambut + Styling (25K)<br>
+                                        <input type="checkbox" name="layanan[]" value="Potong + Keramas + Vitamin|30000"> Potong + Keramas + Vitamin (30K)<br>
+                                        <input type="checkbox" name="layanan[]" value="Bleaching Rambut|70000-150000"> Bleaching Rambut (70K - 150K)<br>
+                                        <input type="checkbox" name="layanan[]" value="Coloring Rambut|25000"> Coloring Rambut (25K)<br>
+                                        <input type="checkbox" name="layanan[]" value="Semir Hitam|20000"> Semir Hitam (20K)<br>
+                                        <input type="checkbox" name="layanan[]" value="Beard (Jenggot)|5000"> Beard (Jenggot) (5K)<br>
+                                        <input type="checkbox" name="layanan[]" value="Trim (Kumis)|5000"> Trim (Kumis) (5K)<br>
+                                        <input type="checkbox" name="layanan[]" value="Delivery Haircut|60000"> Delivery Haircut (60K)<br>
                                     </div>
                                 </div>
-                                <br>
-                               <div class="col-sm-6">
+
+                                <!-- Tanggal -->
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Pilih Tanggal</label>
-                                        <input class="form-control" name="tanggal" id="tanggal" type="date" required>
+                                        <input class="form-control" name="tanggal" type="date" required>
                                     </div>
                                 </div>
 
@@ -522,11 +523,9 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Pilih Jam</label>
-                                        <input class="form-control" name="jam" id="jam" type="time" required>
+                                        <input class="form-control" name="jam" type="time" required>
                                     </div>
                                 </div>
-                                 <!-- Layanan (Optional Dropdown) -->
-                                
 
                             </div>
 
@@ -654,13 +653,17 @@
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/main.js"></script>
     <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            // semua JS kamu di dalam sini
+        });
+    </script>
+    <script>
         document.getElementById("contactForm").addEventListener("submit", function(e) {
             e.preventDefault();
 
             var form = this;
             var submitBtn = form.querySelector("button[type='submit']");
 
-            // 🔒 Disable tombol saat klik
             submitBtn.disabled = true;
             submitBtn.innerText = "Mengirim...";
 
@@ -669,12 +672,22 @@
             var tanggal = document.getElementById("tanggal").value;
             var alamat = document.getElementById("alamat").value;
             var jam = document.getElementById("jam").value;
-            var layanan = document.getElementById("layanan").value;
+
+            // 🔥 Ambil semua layanan yang dipilih
+            var layananChecked = document.querySelectorAll('input[name="layanan[]"]:checked');
+            
 
             if(nama === "" || nomor === "" || tanggal === "" || jam === "") {
                 alert("Harap isi semua data wajib!");
 
-                // 🔓 Aktifkan lagi kalau gagal
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Booking Sekarang";
+                return;
+            }
+
+            if(layananChecked.length === 0){
+                alert("Pilih minimal 1 layanan!");
+
                 submitBtn.disabled = false;
                 submitBtn.innerText = "Booking Sekarang";
                 return;
@@ -685,17 +698,38 @@
                 nomor = "62" + nomor.substring(1);
             }
 
+            // 🔥 Pisahkan layanan & harga
+            var layananList = [];
+            var totalHarga = 0;
+
+            layananChecked.forEach(item => {
+                var [namaLayanan, harga] = item.value.split("|");
+
+                layananList.push(namaLayanan);
+
+                // handle range harga (ambil minimal)
+                if(harga.includes("-")){
+                    var minHarga = harga.split("-")[0];
+                    totalHarga += parseInt(minHarga);
+                } else {
+                    totalHarga += parseInt(harga);
+                }
+            });
+
+            var layananText = layananList.join(", ");
+
             var adminNumber = "6289693615200";
 
-            fetch("https://script.google.com/macros/s/AKfycbz0PXu0cdKGuoVhnfVIlXN9GbFzFjN9J4kwF38YqnMyNasykdsSUjFvVz2BqJfk_5Ix/exec", {
+            fetch("https://script.google.com/macros/s/AKfycbzWKDBkUn0qluvQ-UI5N4ZAVNIWbyKrMYTU6VikAv77KZO4sDWyJzT1Pk-MkUiefk0/exec", {
                 method: "POST",
                 body: JSON.stringify({
                     nama: nama,
                     nomor: nomor,
-                    alamat : alamat,
+                    alamat: alamat,
                     tanggal: tanggal,
                     jam: jam,
-                    layanan: layanan
+                    layanan: layananText,
+                    total: totalHarga
                 })
             })
             .then(res => res.json())
@@ -710,9 +744,10 @@
         Nama: ${nama}
         No WA: ${nomor}
         Tanggal: ${tanggal}
-        Alamat : ${alamat}
+        Alamat: ${alamat}
         Jam: ${jam}
-        Layanan: ${layanan || '-'}
+        Layanan: ${layananText}
+        Estimasi Total: Rp ${totalHarga.toLocaleString()}
         Kunjungan ke: ${kunjungan}`;
 
                 var encodedMessage = encodeURIComponent(pesan);
@@ -722,7 +757,6 @@
 
                 form.reset();
 
-                // 🔄 Optional: aktifkan lagi setelah 5 detik
                 setTimeout(() => {
                     submitBtn.disabled = false;
                     submitBtn.innerText = "Booking Sekarang";
@@ -733,12 +767,12 @@
                 alert("Gagal kirim data!");
                 console.error(err);
 
-                // 🔓 Aktifkan lagi kalau error
                 submitBtn.disabled = false;
                 submitBtn.innerText = "Booking Sekarang";
             });
 
         });
-        </script>
-    </body>
+    </script>
+
+</body>
 </html>
