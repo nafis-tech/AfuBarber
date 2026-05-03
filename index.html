@@ -526,11 +526,24 @@
                                         <input class="form-control" name="jam" type="time" required>
                                     </div>
                                 </div>
+                                <!-- Pilih Barber -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <select class="form-control" name="barber" required>
+                                            <option value="">-- Pilih Barber --</option>
+                                            <option value="Fauzans">Fauzans</option>
+                                            <option value="Isan">Isan</option>
+                                        </select>
+                                    </div>
+                                </div>
 
                             </div>
+                            
 
                             <div class="form-group mt-3">
-                                <button type="submit" class="button button-contactForm boxed-btn">Send</button>
+                                <button type="submit" class="button button-contactForm boxed-btn">
+                                    Booking Sekarang
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -643,10 +656,10 @@
     <script src="./assets/js/hover-direction-snake.min.js"></script>
 
     <!-- contact js -->
-    <script src="./assets/js/contact.js"></script>
+    <!-- <script src="./assets/js/contact.js"></script> -->
     <script src="./assets/js/jquery.form.js"></script>
     <script src="./assets/js/jquery.validate.min.js"></script>
-    <script src="./assets/js/mail-script.js"></script>
+    <!-- <script src="./assets/js/mail-script.js"></script> -->
     <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
     
     <!-- Jquery Plugins, main Jquery -->	
@@ -654,91 +667,87 @@
     <script src="./assets/js/main.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function(){
-            // semua JS kamu di dalam sini
-        });
-    </script>
-    <script>
-        document.getElementById("contactForm").addEventListener("submit", function(e) {
-            e.preventDefault();
 
-            var form = this;
-            var submitBtn = form.querySelector("button[type='submit']");
+            const form = document.getElementById("contactForm");
+            const submitBtn = form.querySelector("button[type='submit']");
 
-            submitBtn.disabled = true;
-            submitBtn.innerText = "Mengirim...";
+            form.addEventListener("submit", function(e){
+                e.preventDefault();
 
-            var nama = document.getElementById("name").value.trim();
-            var nomor = document.getElementById("nomor").value.trim();
-            var tanggal = document.getElementById("tanggal").value;
-            var alamat = document.getElementById("alamat").value;
-            var jam = document.getElementById("jam").value;
+                submitBtn.disabled = true;
+                submitBtn.innerText = "Mengirim...";
 
-            // 🔥 Ambil semua layanan yang dipilih
-            var layananChecked = document.querySelectorAll('input[name="layanan[]"]:checked');
-            
+                const nama = document.querySelector('[name="name"]').value.trim();
+                let nomor = document.querySelector('[name="number"]').value.trim();
+                const alamat = document.querySelector('[name="alamat"]').value;
+                const tanggal = document.querySelector('[name="tanggal"]').value;
+                const jam = document.querySelector('[name="jam"]').value;
+                const barber = document.querySelector('[name="barber"]').value;
 
-            if(nama === "" || nomor === "" || tanggal === "" || jam === "") {
-                alert("Harap isi semua data wajib!");
+                const layananChecked = document.querySelectorAll('input[name="layanan[]"]:checked');
 
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Booking Sekarang";
-                return;
-            }
-
-            if(layananChecked.length === 0){
-                alert("Pilih minimal 1 layanan!");
-
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Booking Sekarang";
-                return;
-            }
-
-            // 🔥 Normalisasi nomor
-            if(nomor.startsWith("0")) {
-                nomor = "62" + nomor.substring(1);
-            }
-
-            // 🔥 Pisahkan layanan & harga
-            var layananList = [];
-            var totalHarga = 0;
-
-            layananChecked.forEach(item => {
-                var [namaLayanan, harga] = item.value.split("|");
-
-                layananList.push(namaLayanan);
-
-                // handle range harga (ambil minimal)
-                if(harga.includes("-")){
-                    var minHarga = harga.split("-")[0];
-                    totalHarga += parseInt(minHarga);
-                } else {
-                    totalHarga += parseInt(harga);
+                // ✅ Validasi
+                if(!nama || !nomor || !tanggal || !jam){
+                    alert("Harap isi semua data wajib!");
+                    resetBtn();
+                    return;
                 }
-            });
+                if(!barber){
+                    alert("Pilih barber dulu!");
+                    resetBtn();
+                    return;
+                }
 
-            var layananText = layananList.join(", ");
+                if(layananChecked.length === 0){
+                    alert("Pilih minimal 1 layanan!");
+                    resetBtn();
+                    return;
+                }
 
-            var adminNumber = "6289693615200";
+                // ✅ Normalisasi nomor
+                if(nomor.startsWith("0")){
+                    nomor = "62" + nomor.substring(1);
+                }
 
-            fetch("https://script.google.com/macros/s/AKfycbzWKDBkUn0qluvQ-UI5N4ZAVNIWbyKrMYTU6VikAv77KZO4sDWyJzT1Pk-MkUiefk0/exec", {
-                method: "POST",
-                body: JSON.stringify({
-                    nama: nama,
-                    nomor: nomor,
-                    alamat: alamat,
-                    tanggal: tanggal,
-                    jam: jam,
-                    layanan: layananText,
-                    total: totalHarga
+                // ✅ Hitung layanan & harga
+                let layananList = [];
+                let totalHarga = 0;
+
+                layananChecked.forEach(item => {
+                    let [namaLayanan, harga] = item.value.split("|");
+
+                    layananList.push(namaLayanan);
+
+                    if(harga.includes("-")){
+                        totalHarga += parseInt(harga.split("-")[0]);
+                    } else {
+                        totalHarga += parseInt(harga);
+                    }
+                });
+
+                const layananText = layananList.join(", ");
+
+                // ✅ FormData (ANTI CORS)
+                const formData = new FormData();
+                formData.append("nama", nama);
+                formData.append("nomor", nomor);
+                formData.append("alamat", alamat);
+                formData.append("tanggal", tanggal);
+                formData.append("jam", jam);
+                formData.append("layanan", layananText);
+                formData.append("total", totalHarga);
+                formData.append("barber", barber);
+
+                fetch("https://script.google.com/macros/s/AKfycbwP5NKk74KqNkFA-9Yi6IX_0hTW2GC4xZ9dYPUJEnMDSBCS4hWcPL2R-NYhsX82HFf5/exec", {
+                    method: "POST",
+                    body: formData
                 })
-            })
-            .then(res => res.json())
-            .then(data => {
+                .then(res => res.json())
+                .then(data => {
 
-                var kunjungan = data.kunjungan || 1;
+                    const kunjungan = data.kunjungan || 1;
 
-                var pesan = 
-        `Halo AFU Barber,
+                    const pesan = `Halo AFU Barber,
         Aku mau booking Nih,
 
         Nama: ${nama}
@@ -747,28 +756,26 @@
         Alamat: ${alamat}
         Jam: ${jam}
         Layanan: ${layananText}
-        Estimasi Total: Rp ${totalHarga.toLocaleString()}
+        Barber: ${barber}
         Kunjungan ke: ${kunjungan}`;
 
-                var encodedMessage = encodeURIComponent(pesan);
-                var url = `https://wa.me/${adminNumber}?text=${encodedMessage}`;
+                    const url = `https://wa.me/6289693615200?text=${encodeURIComponent(pesan)}`;
+                    window.open(url, '_blank');
 
-                window.open(url, '_blank');
+                    form.reset();
+                    resetBtn();
+                })
+                .catch(err => {
+                    alert("Gagal kirim data!");
+                    console.error(err);
+                    resetBtn();
+                });
 
-                form.reset();
-
-                setTimeout(() => {
+                function resetBtn(){
                     submitBtn.disabled = false;
                     submitBtn.innerText = "Booking Sekarang";
-                }, 5000);
+                }
 
-            })
-            .catch(err => {
-                alert("Gagal kirim data!");
-                console.error(err);
-
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Booking Sekarang";
             });
 
         });
